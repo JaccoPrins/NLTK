@@ -1,9 +1,9 @@
-from docx import Document
-from nltk.stem import WordNetLemmatizer
+from docx import Document                                                                       # pip install python-docx
+from nltk.stem import WordNetLemmatizer                                                         # pip install nltk
 from nltk.corpus import stopwords
 from nltk import tokenize, FreqDist
 import re
-import pandas as pd
+import pandas as pd                                                                             # pip install pandas
 
 wnl = WordNetLemmatizer()
 
@@ -32,4 +32,4 @@ for i in range(top_10_words.shape[0]):                                          
 t.style = 'Light Shading'                                                                       # step 12: Change style of table
 
 
-document.save(f'rapport.{filename}')                                                             # step 13: Save document
+document.save(f'rapport.{filename}')                                                            # step 13: Save document
