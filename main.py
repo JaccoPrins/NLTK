@@ -73,11 +73,10 @@ for file in os.listdir(directory):
     document = document['content']
     content = re.sub(r'http\S+', " ", document)                                                         # Delete all links
     content = re.sub("[^a-zA-Z|^-]", " ", content).lower()                                              # Delete all punctuation/upper case letters/numbers
-    content_words = tokenize.word_tokenize(content)                                                     # Split words into list
+    content_words = [w for w in content.split() if len(w) > 1]                                          # Delete all words with one letter and split words into list
     language_name = language[detect(content)]                                                           # Detect text language
     content_words_core = [w for w in content_words if w not in stopwords.words(language_name)]          # Delete adverbs
     stemmed_words = [SnowballStemmer(language_name).stem(word) for word in content_words_core]          # Group different forms of a word to a single item
-    stemmed_words = [w for w in stemmed_words if len(w) > 1]                                            # Delete all words with 1 character
     for words in stemmed_words:
         fdist1 = FreqDist(stemmed_words)                                                                # Count occurrence of words
     top_10_words = pd.DataFrame(fdist1.most_common(10), columns=['Word', 'Count'])                      # Put top 10 words in table
